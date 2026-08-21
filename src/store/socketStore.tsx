@@ -24,7 +24,7 @@ export const useSocketStore = create<SocketState>((set, get) => ({
   donorLocations: {},
 
   connect: (token) => {
-    const url = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:5000';
+    const url = process.env.NEXT_PUBLIC_SOCKET_URL || 'https://lifelink-backend-avuk.onrender.com';
 
     const socket = io(url, {
       auth: { token },

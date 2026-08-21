@@ -193,7 +193,7 @@ async function runTestSuite() {
     pipelineStatus: 'SUCCESS ✅',
     buildNumber: process.env.GITHUB_RUN_NUMBER ? `#${process.env.GITHUB_RUN_NUMBER}` : '#1',
     commitSha: process.env.GITHUB_SHA ? process.env.GITHUB_SHA.substring(0, 7) : 'local-dev',
-    backendUrl: 'http://localhost:5000/api',
+    backendUrl: 'https://lifelink-backend-avuk.onrender.com/api',
     pagesUrl: process.env.PAGES_URL || 'https://premasree7626.github.io/LifeLink/',
   };
 

@@ -56,7 +56,7 @@ async function generateExcelReport(testResults, summaryMetrics) {
     { metric: 'Build Number', value: summaryMetrics.buildNumber || (process.env.GITHUB_RUN_NUMBER ? `#${process.env.GITHUB_RUN_NUMBER}` : '#1') },
     { metric: 'Commit SHA', value: summaryMetrics.commitSha || (process.env.GITHUB_SHA ? process.env.GITHUB_SHA.substring(0, 7) : 'local-dev') },
     { metric: 'Total Execution Duration', value: `${(summaryMetrics.duration || 1.85).toFixed(3)} s` },
-    { metric: 'Production Backend URL', value: summaryMetrics.backendUrl || 'http://localhost:5000/api' },
+    { metric: 'Production Backend URL', value: summaryMetrics.backendUrl || 'https://lifelink-backend-avuk.onrender.com/api' },
     { metric: 'GitHub Pages URL', value: summaryMetrics.pagesUrl || 'https://premasree7626.github.io/LifeLink/' },
     { metric: 'Critical Security Findings', value: 0 },
     { metric: 'High Security Findings', value: 0 },
