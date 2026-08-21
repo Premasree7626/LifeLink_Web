@@ -19,6 +19,13 @@ interface User {
   weight?: number;
   isVerified?: boolean;
   isActive?: boolean;
+  redemptions?: Array<any>;
+  hasChronicDisease?: boolean;
+  notificationPreferences?: {
+    emergency?: boolean;
+    reminders?: boolean;
+    updates?: boolean;
+  };
 }
 
 interface AuthState {

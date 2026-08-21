@@ -305,14 +305,14 @@ export default function DiscountsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5 text-sm text-slate-300">
-              {!user?.redemptions || user.redemptions.length === 0 ? (
+              {!(user as any)?.redemptions || (user as any).redemptions.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="pt-6 text-center text-slate-500">
                     No points redeemed yet
                   </td>
                 </tr>
               ) : (
-                user.redemptions.map((redemption: any, idx: number) => (
+                (user as any).redemptions.map((redemption: any, idx: number) => (
                   <tr key={idx} className="hover:bg-white/2 transition-colors">
                     <td className="py-3 font-medium text-white">{redemption.hospitalName}</td>
                     <td className="py-3">{redemption.treatmentName}</td>
