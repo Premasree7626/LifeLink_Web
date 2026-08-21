@@ -35,10 +35,15 @@ jobs:
         run: npm ci || npm install
 
       - name: Build Next.js Web Application
+        env:
+          NEXT_PUBLIC_API_URL: https://lifelink-backend-avuk.onrender.com/api
+          NEXT_PUBLIC_SOCKET_URL: https://lifelink-backend-avuk.onrender.com
         run: npm run build
 
       - name: Run 500 Test Suite & Generate Reports (Excel, HTML, ZIP)
         env:
+          NEXT_PUBLIC_API_URL: https://lifelink-backend-avuk.onrender.com/api
+          NEXT_PUBLIC_SOCKET_URL: https://lifelink-backend-avuk.onrender.com
           PAGES_URL: ${{ steps.deployment.outputs.page_url }}
         run: npm run test:lifelink
 
