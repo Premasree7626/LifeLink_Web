@@ -34,29 +34,31 @@ jobs:
       - name: Install Dependencies
         run: npm ci || npm install
 
-      - name: Build Next.js Application
+      - name: Build Next.js Web Application
         run: npm run build
 
-      - name: Run 500 Test Suite & Generate Reports
+      - name: Run 500 Test Suite & Generate Reports (Excel, HTML, ZIP)
         env:
           PAGES_URL: ${{ steps.deployment.outputs.page_url }}
         run: npm run test:lifelink
 
       - name: Prepare Deployment Directory for GitHub Pages
         run: |
-          mkdir -p public_deploy/reports/latest
-          mkdir -p public_deploy/reports/history/build-${{ github.run_number }}
+          mkdir -p dist/reports/latest
+          mkdir -p dist/reports/history/build-${{ github.run_number }}
           
-          # Copy reports to latest directory
-          cp LifeLinkTesting/reports/html/execution-report.html public_deploy/reports/latest/execution-report.html
-          cp LifeLinkTesting/reports/excel/LifeLink_Web_500_Test_Report.xlsx public_deploy/reports/latest/LifeLink_Web_500_Test_Report.xlsx
+          # Copy complete Next.js static Web application build to dist root
+          cp -r out/* dist/
           
-          # Copy reports to build history directory
-          cp LifeLinkTesting/reports/html/execution-report.html public_deploy/reports/history/build-${{ github.run_number }}/execution-report.html
-          cp LifeLinkTesting/reports/excel/LifeLink_Web_500_Test_Report.xlsx public_deploy/reports/history/build-${{ github.run_number }}/LifeLink_Web_500_Test_Report.xlsx
+          # Copy report files to dist/reports/latest/
+          cp LifeLinkTesting/reports/html/execution-report.html dist/reports/latest/execution-report.html
+          cp LifeLinkTesting/reports/excel/LifeLink_Web_500_Test_Report.xlsx dist/reports/latest/LifeLink_Web_500_Test_Report.xlsx
+          cp LifeLinkTesting/reports/zip/LifeLink_Web_Test_Reports.zip dist/reports/latest/LifeLink_Web_Test_Reports.zip
           
-          # Set root page to execution report dashboard
-          cp LifeLinkTesting/reports/html/execution-report.html public_deploy/index.html
+          # Copy report files to build history directory
+          cp LifeLinkTesting/reports/html/execution-report.html dist/reports/history/build-${{ github.run_number }}/execution-report.html
+          cp LifeLinkTesting/reports/excel/LifeLink_Web_500_Test_Report.xlsx dist/reports/history/build-${{ github.run_number }}/LifeLink_Web_500_Test_Report.xlsx
+          cp LifeLinkTesting/reports/zip/LifeLink_Web_Test_Reports.zip dist/reports/history/build-${{ github.run_number }}/LifeLink_Web_Test_Reports.zip
 
       - name: Upload Excel Test Report Artifact
         uses: actions/upload-artifact@v4
@@ -67,7 +69,7 @@ jobs:
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: public_deploy
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment
@@ -108,9 +110,10 @@ jobs:
 
           ---
 
-          ## 📄 Report Access & Links
+          ## 📄 Report Access & Download Links
 
           - 🌐 **Web Dashboard Application**: ${PAGES_BASE}/
+          - 📦 **Download Complete Test Reports ZIP**: ${PAGES_BASE}/reports/latest/LifeLink_Web_Test_Reports.zip
           - 📊 **Latest HTML Execution Report**: ${PAGES_BASE}/reports/latest/execution-report.html
           - 📥 **Download Excel Test Report**: ${PAGES_BASE}/reports/latest/LifeLink_Web_500_Test_Report.xlsx
 

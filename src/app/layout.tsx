@@ -4,6 +4,7 @@ import { Inter, Orbitron } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
 import { Providers } from '@/components/Providers';
+import { Footer } from '@/components/Footer';
 
 const inter = Inter({ 
   subsets: ['latin'], 
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inter.variable} ${orbitron.variable} bg-[#0a0a0f] text-white antialiased`}>
         <Providers>
           {children}
+          <Footer />
         </Providers>
         <Toaster
           position="top-right"

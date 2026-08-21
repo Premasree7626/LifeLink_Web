@@ -1,8 +1,13 @@
 // next.config.js
 /** @type {import('next').NextConfig} */
+const isGithubActions = process.env.GITHUB_ACTIONS || false;
+
 const nextConfig = {
+  output: 'export',
+  basePath: isGithubActions ? '/LifeLink_Web' : '',
   reactStrictMode: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: 'res.cloudinary.com' },
       { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
@@ -10,17 +15,6 @@ const nextConfig = {
       { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
     ],
   },
-  // PWA support (add next-pwa for production)
-  headers: async () => [
-    {
-      source: '/(.*)',
-      headers: [
-        { key: 'X-Content-Type-Options', value: 'nosniff' },
-        { key: 'X-Frame-Options', value: 'DENY' },
-        { key: 'X-XSS-Protection', value: '1; mode=block' },
-      ],
-    },
-  ],
 };
 
 module.exports = nextConfig;

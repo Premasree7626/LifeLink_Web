@@ -2,6 +2,7 @@
 const path = require('path');
 const { generateExcelReport } = require('../utils/excelReporter');
 const { generateHtmlReport } = require('../utils/htmlReportGenerator');
+const { generateReportsZip } = require('../utils/zipGenerator');
 
 // -------------------------------------------------------------------
 // 500 TEST DEFINITIONS ACCROSS 5 SECTIONS (100 TESTS EACH)
@@ -204,9 +205,10 @@ async function runTestSuite() {
   console.log(`[SUITE EXECUTED] Execution Time: ${summaryMetrics.duration.toFixed(3)}s\n`);
 
   // Generate Reports
-  console.log('Generating Excel & HTML Reports...');
+  console.log('Generating Excel, HTML & ZIP Reports...');
   await generateExcelReport(testResults, summaryMetrics);
   generateHtmlReport(testResults, summaryMetrics);
+  generateReportsZip();
 
   console.log('\n====================================================');
   console.log('🎉 ALL 500 TESTS PASSED & REPORTS GENERATED SUCCESSFULLY');
