@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:lifelink": "node LifeLinkTesting/tests/lifelink_500_tests.test.js"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.0.5",
@@ -24,6 +25,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.1.0",
+    "exceljs": "^4.4.0",
     "firebase": "^10.10.0",
     "framer-motion": "^11.0.3",
     "jspdf": "^4.2.1",
